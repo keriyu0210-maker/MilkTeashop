@@ -16,7 +16,7 @@ builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationSc
         options.LoginPath        = "/Auth/Login";
         options.AccessDeniedPath = "/Auth/AccessDenied";
         options.ExpireTimeSpan   = TimeSpan.FromHours(8);
-    })
+    });
 builder.Services.AddAuthorization();
 
 var app = builder.Build();
