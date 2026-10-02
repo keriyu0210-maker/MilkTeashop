@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://milkteashop.onrender.com/sitemap.xml
