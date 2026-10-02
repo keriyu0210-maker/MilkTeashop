@@ -3,12 +3,14 @@
 @{
     ViewData["Title"] = "Trang chủ";
     var grouped = Model.GroupBy(p => p.Category?.Name ?? "Khác");
-    var banners = ViewBag.Banners as List<MilkTeaShop.Models.Banner> ?? new List<MilkTeaShop.Models.Banner>();
+    var banners = ViewBag.Banners as List<MilkTeaShop.Models.Banner>
+        ?? new List<MilkTeaShop.Models.Banner>();
 }
 
-@* ══════════════════════════════════════════
-   BANNER SLIDESHOW – toàn màn hình, tự lướt
-   ══════════════════════════════════════════ *@
+@* =========================
+   BANNER SLIDESHOW
+   ========================= *@
+
 @if (banners.Any())
 {
     <div id="heroBannerCarousel"
@@ -17,7 +19,6 @@
          data-bs-interval="5000"
          style="border-radius: 16px; overflow: hidden; box-shadow: 0 4px 24px rgba(0,0,0,.12);">
 
-        @* Indicators (chấm tròn bên dưới) *@
         <div class="carousel-indicators">
             @for (int i = 0; i < banners.Count; i++)
             {
@@ -30,16 +31,20 @@
             }
         </div>
 
-        @* Slides *@
         <div class="carousel-inner">
+
             @for (int i = 0; i < banners.Count; i++)
             {
                 var b = banners[i];
+
                 <div class="carousel-item @(i == 0 ? "active" : "")">
+
                     @if (!string.IsNullOrEmpty(b.LinkUrl))
                     {
                         <a href="@b.LinkUrl">
-                            <img src="@(!string.IsNullOrEmpty(b.ImageUrl) ? b.ImageUrl : "/images/default-banner.jpg")"
+                            <img src="@(!string.IsNullOrEmpty(b.ImageUrl)
+                                ? b.ImageUrl
+                                : "https://images.unsplash.com/photo-1558857563-b371033873b8?auto=format&fit=crop&w=1400&q=80")"
                                  class="d-block w-100"
                                  alt="@b.Title"
                                  style="height: 480px; object-fit: cover;" />
@@ -47,138 +52,227 @@
                     }
                     else
                     {
-                        <img src="@(!string.IsNullOrEmpty(b.ImageUrl) ? b.ImageUrl : "/images/default-banner.jpg")"
+                        <img src="@(!string.IsNullOrEmpty(b.ImageUrl)
+                            ? b.ImageUrl
+                            : "https://images.unsplash.com/photo-1558857563-b371033873b8?auto=format&fit=crop&w=1400&q=80")"
                              class="d-block w-100"
                              alt="@b.Title"
                              style="height: 480px; object-fit: cover;" />
                     }
 
-                    @if (!string.IsNullOrEmpty(b.Title) || !string.IsNullOrEmpty(b.Description))
+                    @if (!string.IsNullOrEmpty(b.Title) ||
+                         !string.IsNullOrEmpty(b.Description))
                     {
                         <div class="carousel-caption text-start"
                              style="left: 5%; right: 35%; bottom: 18%; text-shadow: 0 2px 8px rgba(0,0,0,.55);">
-                            <h2 class="fw-bold display-5 text-white">@b.Title</h2>
+
+                            <h2 class="fw-bold display-5 text-white">
+                                @b.Title
+                            </h2>
+
                             @if (!string.IsNullOrEmpty(b.Description))
                             {
-                                <p class="fs-5 text-white mb-3">@b.Description</p>
+                                <p class="fs-5 text-white mb-3">
+                                    @b.Description
+                                </p>
                             }
+
                             @if (!string.IsNullOrEmpty(b.LinkUrl))
                             {
-                                <a href="@b.LinkUrl" class="btn btn-success btn-lg rounded-pill px-5">
+                                <a href="@b.LinkUrl"
+                                   class="btn btn-success btn-lg rounded-pill px-5">
                                     Xem ngay &rarr;
                                 </a>
                             }
+
                         </div>
                     }
+
                 </div>
             }
+
         </div>
 
         @if (banners.Count > 1)
         {
-            <button class="carousel-control-prev" type="button"
-                    data-bs-target="#heroBannerCarousel" data-bs-slide="prev">
+            <button class="carousel-control-prev"
+                    type="button"
+                    data-bs-target="#heroBannerCarousel"
+                    data-bs-slide="prev">
+
                 <span class="carousel-control-prev-icon"></span>
                 <span class="visually-hidden">Trước</span>
+
             </button>
-            <button class="carousel-control-next" type="button"
-                    data-bs-target="#heroBannerCarousel" data-bs-slide="next">
+
+            <button class="carousel-control-next"
+                    type="button"
+                    data-bs-target="#heroBannerCarousel"
+                    data-bs-slide="next">
+
                 <span class="carousel-control-next-icon"></span>
                 <span class="visually-hidden">Sau</span>
+
             </button>
         }
+
     </div>
 }
 
-@* ══════════════════════════════════════════
+
+@* =========================
    MENU SẢN PHẨM
-   ══════════════════════════════════════════ *@
+   ========================= *@
+
 <div class="row mb-4 align-items-center">
+
     <div class="col">
-        <h2 class="fw-bold mb-0">Menu của chúng tôi</h2>
-        <p class="text-muted">Chọn món yêu thích và đặt hàng ngay!</p>
+        <h2 class="fw-bold mb-0">
+            Menu của chúng tôi
+        </h2>
+
+        <p class="text-muted">
+            Chọn món yêu thích và đặt hàng ngay!
+        </p>
     </div>
-    @if (!User.Identity!.IsAuthenticated)
+
+    @if (User.Identity?.IsAuthenticated != true)
     {
         <div class="col-auto">
-            <a asp-controller="Auth" asp-action="Login" class="btn btn-success rounded-pill px-4">
+
+            <a asp-controller="Auth"
+               asp-action="Login"
+               class="btn btn-success rounded-pill px-4">
+
                 Đăng nhập để đặt hàng
+
             </a>
+
         </div>
     }
+
 </div>
+
 
 @foreach (var group in grouped)
 {
-    <h5 class="fw-bold text-success mb-3 border-bottom pb-2">@group.Key</h5>
+    <h5 class="fw-bold text-success mb-3 border-bottom pb-2">
+        @group.Key
+    </h5>
+
     <div class="row g-4 mb-4">
+
         @foreach (var p in group)
         {
-            <div class="col-md-4 col-sm-6">
+            <div class="col-lg-4 col-md-6 col-sm-12">
+
                 <div class="card h-100 shadow-sm product-card @(!p.IsAvailable ? "out-of-stock" : "")">
 
-                    @if (!p.IsAvailable)
+                    @* TRẠNG THÁI SẢN PHẨM *@
+
+                    @if (p.IsAvailable)
                     {
-                        <span class="badge-stock badge bg-secondary">Hết hàng</span>
+                        <span class="badge-stock badge bg-success">
+                            Còn hàng
+                        </span>
                     }
                     else
                     {
-                        <span class="badge-stock badge bg-success">Còn hàng</span>
+                        <span class="badge-stock badge bg-secondary">
+                            Hết hàng
+                        </span>
                     }
 
-                    <div class="product-img d-flex align-items-center justify-content-center bg-light"
-                         style="height: 180px; overflow: hidden;">
-                        @if (!string.IsNullOrEmpty(p.ImageUrl))
+
+                    @* ẢNH SẢN PHẨM *@
+
+                    <div class="product-img bg-light"
+                         style="height: 220px; overflow: hidden;">
+
+                        @if (!string.IsNullOrWhiteSpace(p.ImageUrl))
                         {
-                            <img src="@p.ImageUrl"
-                                 class="img-fluid w-100 h-100"
+                            <img src="@Url.Content(p.ImageUrl)"
+                                 class="w-100 h-100"
                                  style="object-fit: cover;"
                                  alt="@p.Name"
-                                 onerror="this.onerror=null; this.src='/images/default.png';" />
+                                 onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1572490122747-3968b75cc699?auto=format&fit=crop&w=800&q=80';" />
                         }
                         else
                         {
-                            <img src="/images/default.png"
-                                 class="img-fluid w-100 h-100"
-                                 style="object-fit: cover;" />
+                            <img src="https://images.unsplash.com/photo-1572490122747-3968b75cc699?auto=format&fit=crop&w=800&q=80"
+                                 class="w-100 h-100"
+                                 style="object-fit: cover;"
+                                 alt="@p.Name" />
                         }
+
                     </div>
 
+
+                    @* THÔNG TIN SẢN PHẨM *@
+
                     <div class="card-body d-flex flex-column">
-                        <h5 class="fw-bold">@p.Name</h5>
+
+                        <h5 class="fw-bold">
+                            @p.Name
+                        </h5>
+
                         <p class="text-muted small flex-grow-1">
-                            @(p.Description ?? "Thức uống thơm ngon, được pha chế tươi mỗi ngày")
+                            @(p.Description ??
+                            "Thức uống thơm ngon, được pha chế tươi mỗi ngày")
                         </p>
 
+
                         <div class="d-flex justify-content-between align-items-center mt-3">
+
                             <span class="fs-5 fw-bold text-success">
                                 @p.BasePrice.ToString("N0") đ
                             </span>
 
+
                             @if (p.IsAvailable)
                             {
-                                @if (User.Identity!.IsAuthenticated && User.IsInRole("Customer"))
+                                @if (User.Identity?.IsAuthenticated == true &&
+                                     User.IsInRole("Customer"))
                                 {
-                                    <a asp-controller="Order" asp-action="Create"
+                                    <a asp-controller="Order"
+                                       asp-action="Create"
                                        asp-route-productId="@p.Id"
-                                       class="btn btn-success rounded-pill px-3">Đặt ngay</a>
+                                       class="btn btn-success rounded-pill px-3">
+
+                                        Đặt ngay
+
+                                    </a>
                                 }
-                                else if (!User.Identity!.IsAuthenticated)
+                                else if (User.Identity?.IsAuthenticated != true)
                                 {
-                                    <a asp-controller="Auth" asp-action="Login"
+                                    <a asp-controller="Auth"
+                                       asp-action="Login"
                                        asp-route-returnUrl="/Order/Create?productId=@p.Id"
-                                       class="btn btn-outline-success rounded-pill px-3">Đặt ngay</a>
+                                       class="btn btn-outline-success rounded-pill px-3">
+
+                                        Đặt ngay
+
+                                    </a>
                                 }
                             }
                             else
                             {
-                                <button class="btn btn-secondary rounded-pill px-3" disabled>Hết hàng</button>
+                                <button class="btn btn-secondary rounded-pill px-3"
+                                        disabled>
+
+                                    Hết hàng
+
+                                </button>
                             }
+
                         </div>
+
                     </div>
 
                 </div>
+
             </div>
         }
+
     </div>
 }
