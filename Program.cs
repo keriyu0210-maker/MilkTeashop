@@ -17,16 +17,6 @@ builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationSc
         options.AccessDeniedPath = "/Auth/AccessDenied";
         options.ExpireTimeSpan   = TimeSpan.FromHours(8);
     })
-    .AddGoogle(options =>
-    {
-        options.ClientId     = builder.Configuration["Authentication:Google:ClientId"]!;
-        options.ClientSecret = builder.Configuration["Authentication:Google:ClientSecret"]!;
-        options.CallbackPath = "/signin-google";
-        // Lấy thêm thông tin từ Google
-        options.Scope.Add("profile");
-        options.Scope.Add("email");
-    });
-
 builder.Services.AddAuthorization();
 
 var app = builder.Build();
