@@ -1,14 +1,24 @@
 @model IEnumerable<MilkTeaShop.Models.Product>
 @{
-    ViewData["Title"] = "Menu";
+    ViewData["Title"] ??= "Menu đồ uống - Trà sữa, cà phê và trà trái cây";
+    ViewData["Description"] ??= "Xem menu đồ uống MilkTeaShop gồm trà sữa, cà phê, trà trái cây và smoothie. Kiểm tra giá, tình trạng còn hàng và chọn món để đặt trực tuyến.";
+    ViewData["CanonicalPath"] ??= "/menu";
+    var heading = ViewData["Heading"]?.ToString() ?? "Menu đồ uống MilkTeaShop";
+    var intro = ViewData["Intro"]?.ToString() ?? "Chọn đồ uống theo sở thích, xem giá gốc và tình trạng món trước khi đặt hàng.";
 }
 
 <div class="container py-5">
     <div class="text-center mb-5">
-        <h2 class="fw-bold mb-0 text-uppercase tracking-wide">Menu Đồ Uống</h2>
+        <h1 class="fw-bold fs-2 mb-3">@heading</h1>
+        <p class="text-muted">@intro</p>
+        <p><a href="/menu/tra-sua">Menu trà sữa</a> · <a href="/menu">Tất cả đồ uống</a> · <a href="/huong-dan/dat-hang">Hướng dẫn đặt hàng</a></p>
         <div class="mx-auto bg-success mt-2" style="height: 3px; width: 50px;"></div>
     </div>
 
+    @if (!Model.Any())
+    {
+        <p class="alert alert-info">Danh mục đang cập nhật. Bạn có thể <a href="/menu">xem các đồ uống khác trong menu</a>.</p>
+    }
     <div class="row g-4">
         @foreach (var p in Model)
         {
@@ -18,7 +28,7 @@
                     <div class="bg-light d-flex align-items-center justify-content-center" style="height:180px;">
                         @if (!string.IsNullOrEmpty(p.ImageUrl))
                         {
-                            <img src="@p.ImageUrl" class="img-fluid h-100 w-100 object-fit-cover" alt="@p.Name" />
+                            <img src="@p.ImageUrl" class="img-fluid h-100 w-100 object-fit-cover" alt="@p.Name" loading="lazy" decoding="async" />
                         }
                         else
                         {
@@ -33,16 +43,22 @@
                             </span>
                         </div>
 
-                        <h5 class="fw-bold mb-2">@p.Name</h5>
+                        <h2 class="fw-bold fs-5 mb-2">@p.Name</h2>
                         <p class="text-muted small flex-grow-1">
                             @(p.Description ?? "Hương vị thơm ngon đặc trưng, được pha chế từ nguyên liệu tươi sạch.")
                         </p>
 
                         <div class="d-flex justify-content-between align-items-center mt-3 pt-3 border-top">
                             <span class="fs-5 fw-bold text-success">@p.BasePrice.ToString("N0") đ</span>
-                            <a href="/Order/Create?productId=@p.Id" class="btn btn-success rounded-pill px-4 fw-bold">
-                                Đặt món
-                            </a>
+                            @if (p.IsAvailable)
+                            {
+                                <a asp-controller="Order" asp-action="Create" asp-route-productId="@p.Id"
+                                   class="btn btn-success rounded-pill px-4 fw-bold" aria-label="Đặt @p.Name">Đặt món</a>
+                            }
+                            else
+                            {
+                                <span class="badge bg-secondary">Hết hàng</span>
+                            }
                         </div>
                     </div>
                 </div>

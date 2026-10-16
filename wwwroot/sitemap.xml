@@ -1,10 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-
-    <url>
-        <loc>https://milkteashop.onrender.com/</loc>
-        <changefreq>weekly</changefreq>
-        <priority>1.0</priority>
-    </url>
-
+  <url><loc>https://milkteashop.onrender.com/</loc></url>
+  <url><loc>https://milkteashop.onrender.com/menu</loc></url>
+  <url><loc>https://milkteashop.onrender.com/menu/tra-sua</loc></url>
+  <url><loc>https://milkteashop.onrender.com/huong-dan/dat-hang</loc></url>
 </urlset>

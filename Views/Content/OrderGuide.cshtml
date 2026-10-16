@@ -1,0 +1,38 @@
+@{
+    ViewData["Title"] = "Hướng dẫn đặt trà sữa online";
+    ViewData["Description"] = "Hướng dẫn cách đặt trà sữa online tại MilkTeaShop: đăng nhập, chọn món, tùy chỉnh size, đường, đá, topping và theo dõi đơn hàng trong tài khoản.";
+    ViewData["CanonicalPath"] = "/huong-dan/dat-hang";
+}
+<article class="mx-auto" style="max-width: 800px;">
+    <nav aria-label="Đường dẫn trang" class="mb-3"><a href="/">Trang chủ</a> / Hướng dẫn đặt hàng</nav>
+    <h1 class="fw-bold fs-2">Hướng dẫn đặt trà sữa online tại MilkTeaShop</h1>
+    <p>Bạn muốn chọn đồ uống theo sở thích? Dưới đây là cách đặt trà sữa online trên MilkTeaShop,
+        từ bước xem menu đến theo dõi đơn trong tài khoản.</p>
+    <h2 class="fs-4 mt-4">1. Xem menu và kiểm tra tình trạng món</h2>
+    <p>Mở <a href="/menu/tra-sua">menu trà sữa MilkTeaShop</a> hoặc <a href="/menu">toàn bộ menu đồ uống</a>.
+        Xem tên món, giá gốc và tình trạng còn hàng. Món hết hàng chưa thể đặt.</p>
+    <h2 class="fs-4 mt-4">2. Đăng ký hoặc đăng nhập tài khoản khách hàng</h2>
+    <p>Nếu chưa có tài khoản, chọn <a asp-controller="Auth" asp-action="Register">Đăng ký</a>.
+        Nếu đã có tài khoản khách hàng, chọn <a asp-controller="Auth" asp-action="Login">Đăng nhập</a> rồi quay lại menu để chọn món.</p>
+    <h2 class="fs-4 mt-4">3. Chọn món và tùy chỉnh đồ uống</h2>
+    <p>Nhấn Đặt ngay hoặc Đặt món tại sản phẩm muốn mua. Trong biểu mẫu đặt hàng,
+        chọn kích cỡ, độ ngọt, lượng đá, topping và số lượng. Kiểm tra giá sau khi tùy chỉnh:
+        size và topping có thể làm thay đổi số tiền so với giá gốc.</p>
+    <h2 class="fs-4 mt-4">4. Kiểm tra thông tin và xác nhận đơn</h2>
+    <p>Điền hoặc kiểm tra họ tên, số điện thoại, địa chỉ giao hàng và ghi chú.
+        Chọn phương thức thanh toán được hiển thị, kiểm tra tổng tiền rồi xác nhận đặt hàng.</p>
+    <p>Trạng thái thanh toán cần được nhân viên xác nhận theo phương thức bạn chọn.
+        Việc tạo đơn chưa đồng nghĩa thanh toán đã hoàn tất.</p>
+    <h2 class="fs-4 mt-4">5. Theo dõi đơn hàng</h2>
+    <p>Sau khi đăng nhập, mở mục Đơn hàng của tôi trên thanh điều hướng để xem đơn và trạng thái cập nhật.
+        Kiểm tra thông tin đơn trước khi thực hiện thao tác tiếp theo.</p>
+    <h2 class="fs-4 mt-4">Câu hỏi thường gặp</h2>
+    <h3 class="fs-5">Có cần đăng nhập để đặt trà sữa không?</h3>
+    <p>Có. Chức năng đặt hàng dành cho tài khoản khách hàng đã đăng nhập.</p>
+    <h3 class="fs-5">Giá trên menu đã bao gồm mọi tùy chọn chưa?</h3>
+    <p>Giá trên menu là giá gốc. Tổng tiền phụ thuộc size, topping và số lượng trong biểu mẫu đặt hàng.</p>
+    <h3 class="fs-5">Vì sao tôi chưa đặt được một món?</h3>
+    <p>Hãy kiểm tra tình trạng còn hàng và bảo đảm bạn đang dùng tài khoản khách hàng.
+        Nếu danh mục đang cập nhật, bạn có thể quay lại <a href="/menu">menu đồ uống</a> để chọn món khác.</p>
+    <p class="mt-4"><a href="/menu/tra-sua" class="btn btn-success rounded-pill px-4">Xem menu trà sữa</a></p>
+</article>

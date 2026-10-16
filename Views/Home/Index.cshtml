@@ -1,11 +1,22 @@
 @model IEnumerable<MilkTeaShop.Models.Product>
 
 @{
-    ViewData["Title"] = "Trang chủ";
+    ViewData["Title"] = "Menu trà sữa, cà phê và đồ uống online";
+    ViewData["Description"] = "Khám phá menu trà sữa, cà phê, trà trái cây và smoothie tại MilkTeaShop. Xem giá, tình trạng món và hướng dẫn đặt đồ uống trực tuyến theo sở thích.";
+    ViewData["CanonicalPath"] = "/";
     var grouped = Model.GroupBy(p => p.Category?.Name ?? "Khác");
     var banners = ViewBag.Banners as List<MilkTeaShop.Models.Banner>
         ?? new List<MilkTeaShop.Models.Banner>();
 }
+
+<section class="mb-4" aria-labelledby="home-heading">
+    <h1 id="home-heading" class="fw-bold fs-2">MilkTeaShop - Trà sữa và đồ uống trực tuyến</h1>
+    <p class="text-muted">Xem menu, giá và tình trạng từng món trước khi đặt đồ uống.
+        Bạn có thể chọn size, đường, đá và topping trong bước đặt hàng.</p>
+    <p><a href="/menu/tra-sua">Khám phá menu trà sữa</a>
+        <span class="mx-2" aria-hidden="true">·</span>
+        <a href="/huong-dan/dat-hang">Cách đặt trà sữa online tại MilkTeaShop</a></p>
+</section>
 
 @* =========================
    BANNER SLIDESHOW
@@ -156,9 +167,9 @@
 
 @foreach (var group in grouped)
 {
-    <h5 class="fw-bold text-success mb-3 border-bottom pb-2">
+    <h2 class="fw-bold text-success fs-5 mb-3 border-bottom pb-2">
         @group.Key
-    </h5>
+    </h2>
 
     <div class="row g-4 mb-4">
 
@@ -192,7 +203,7 @@
                         @if (!string.IsNullOrWhiteSpace(p.ImageUrl))
                         {
                             <img src="@Url.Content(p.ImageUrl)"
-                                 class="w-100 h-100"
+                                 class="w-100 h-100" loading="lazy" decoding="async"
                                  style="object-fit: cover;"
                                  alt="@p.Name"
                                  onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1572490122747-3968b75cc699?auto=format&fit=crop&w=800&q=80';" />
@@ -200,9 +211,9 @@
                         else
                         {
                             <img src="https://images.unsplash.com/photo-1572490122747-3968b75cc699?auto=format&fit=crop&w=800&q=80"
-                                 class="w-100 h-100"
+                                 class="w-100 h-100" loading="lazy" decoding="async"
                                  style="object-fit: cover;"
-                                 alt="@p.Name" />
+                                 alt="Ảnh minh họa đồ uống" />
                         }
 
                     </div>
@@ -212,9 +223,9 @@
 
                     <div class="card-body d-flex flex-column">
 
-                        <h5 class="fw-bold">
+                        <h3 class="fw-bold fs-5">
                             @p.Name
-                        </h5>
+                        </h3>
 
                         <p class="text-muted small flex-grow-1">
                             @(p.Description ??

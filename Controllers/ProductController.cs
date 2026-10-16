@@ -11,6 +11,9 @@ namespace MilkTeaShop.Controllers
         private readonly ApplicationDbContext _context;
         public ProductController(ApplicationDbContext context) => _context = context;
 
+        [HttpGet("/menu")]
+        [HttpGet("/Product/Index")]
+        [HttpGet("/Product")]
         public IActionResult Index()
         {
             var products = _context.Products
